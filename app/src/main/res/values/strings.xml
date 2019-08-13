@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ProjetFinal</string>
+    <string name="textview">Employee List</string>
+    <string name="textviewEmailL">TextView</string>
+</resources>
