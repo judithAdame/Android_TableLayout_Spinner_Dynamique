@@ -2,6 +2,7 @@ package com.example.projetfinal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,23 +23,21 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class ListeEmployes extends AppCompatActivity {
-        String addIp = "10.150.134.5";
+        String addIp = "192.168.123.11";
         String serviceWebGetAll = "http://"+addIp+":8080/WebApplication1/webresources/database/employeeList";
-        //String id = "100";
-        // String serviceWebGetById = "http://"+addIp+"/WebApplication1/webresources/database/singleEmployee&"+id;
+        // String serviceWebGetById = "http://"+addIp+"/WebApplication1/webresources/database/singleEmployee&100";
         String str = "\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\n";
-        String message;
-        TextView outTextViewTmp;
         TableLayout outTableLayout;
         TableRow tr1;
-        TextView theID, theFName, theLName;
+        TextView theID;
+        TextView  theFName;
+        TextView  theLName;
         JSONArray jsonarray;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_liste_employes);
-            outTextViewTmp = (TextView) findViewById(R.id.textViewTmp);
 
             outTableLayout = (TableLayout) findViewById(R.id.tableLayoutEmployes);
 
@@ -65,16 +64,11 @@ public class ListeEmployes extends AppCompatActivity {
             Intent monIntent = new Intent(this, DetailEmploye.class);
             startActivity(monIntent);
         }
-        private class MyTask extends AsyncTask<Void, Void, Void> {
-            ListeEmployes l ;
-
-            String id, fname, lname;
-
+        private class MyTask extends AsyncTask<Void , Void, Void> {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
                     URL url = new URL(serviceWebGetAll);
-                    //URL url = new URL(serviceWebGetById);
                     System.out.println(str+"Sending 'GET' request to URL: " + url+str);
 
                     HttpURLConnection client;
@@ -91,53 +85,53 @@ public class ListeEmployes extends AppCompatActivity {
                         response.append(inputLine);
                     }
                     in.close();
-
                     jsonarray  = new JSONArray(response.toString());
-
-                    JSONObject jsonobject;
-
-                    for (int i = 0; i < jsonarray.length(); i++) {
-                        jsonobject = jsonarray.getJSONObject(i);
-                        id = jsonobject.getString("id");
-                        fname = jsonobject.getString("fname");
-                        lname = jsonobject.getString("lname");
-                        message += "id : " + id+"fname : " + fname+"lname : " + lname + "\n";
-                        System.out.println(str+message+str);
-                    }
 
                 } catch (ConnectException e) {
                     e.printStackTrace();
                     System.out.println(str+e.getMessage()+str);
-                } catch (IOException | JSONException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                     System.out.println(str+e.getMessage()+str);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void result){
-                outTextViewTmp.setText(message);
-                JSONObject jsonobject1 = new JSONObject();
-              /*  for(int i=0; i<jsonarray.length(); i++) {
+                super.onPostExecute(result);
+            }
+        }
+        private void setTable(){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject jsonobject;
+                    String id, fname, lname;
                     try {
-                        jsonobject1 = jsonarray.getJSONObject(i);
-                        tr1 = new TableRow(this);
-                        theID = new TextView(this.getClass().);
-                        theID.setText(jsonobject1.getString("id"));
-                        tr1.addView(theID);
-                        theFName = new TextView(this);
-                        theFName.setText(jsonobject1.getString("fname"));
-                        tr1.addView(theFName);
-                        theLName = new TextView(this);
-                        theLName.setText(jsonobject1.getString("lname"));
-                        tr1.addView(theLName);
-                        outTableLayout.addView(tr1);
+                        for (int i = 0; i < jsonarray.length(); i++) {
+                            jsonobject = jsonarray.getJSONObject(i);
+
+                            id = jsonobject.getString("id");
+                            theID.setText(id);
+                            tr1.addView(theID);
+
+                            fname = jsonobject.getString("fname");
+                            theFName.setText(fname);
+                            tr1.addView(theFName);
+
+                            lname = jsonobject.getString("lname");
+                            theLName.setText(lname);
+                            tr1.addView(theLName);
+
+                            outTableLayout.addView(tr1);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }*/
-                super.onPostExecute(result);
-            }
+                }
+            });
         }
     }

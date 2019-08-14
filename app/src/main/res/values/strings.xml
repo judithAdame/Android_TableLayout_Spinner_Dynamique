@@ -2,4 +2,6 @@
     <string name="app_name">ProjetFinal</string>
     <string name="textview">Employee List</string>
     <string name="textviewEmailL">TextView</string>
+    <string name="liste_demployes">Liste demployes</string>
+    <string name="employee_details">EMPLOYEE DETAILS</string>
 </resources>
