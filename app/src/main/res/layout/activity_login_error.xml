@@ -11,22 +11,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login error"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.084" />
+        app:layout_constraintVertical_bias="0.196" />
 
     <TextView
         android:id="@+id/messageError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="323dp"
+        android:layout_height="104dp"
         android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.681"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.271" />
+        app:layout_constraintVertical_bias="0.4" />
 
     <Button
         android:id="@+id/button2"
@@ -36,8 +40,8 @@
         android:text="Login Screen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.862"
+        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.389" />
+        app:layout_constraintVertical_bias="0.726" />
 </androidx.constraintlayout.widget.ConstraintLayout>
