@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -39,10 +40,9 @@ public class ListeEmployes extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_liste_employes);
 
-            outTableLayout = (TableLayout) findViewById(R.id.tableLayoutEmployes);
+            outTableLayout = findViewById(R.id.tableLayoutEmployes);
 
-            tr1 = new TableRow(this);
-
+            /*tr1 = new TableRow(this);
             theID = new TextView(this);
             theID.setText(" ID ");
             tr1.addView(theID);
@@ -55,7 +55,7 @@ public class ListeEmployes extends AppCompatActivity {
             theLName.setText(" LNAME ");
             tr1.addView(theLName);
 
-            outTableLayout.addView(tr1);
+            outTableLayout.addView(tr1);*/
 
             new ListeEmployes.MyTask().execute();
 
@@ -64,6 +64,40 @@ public class ListeEmployes extends AppCompatActivity {
             Intent monIntent = new Intent(this, DetailEmploye.class);
             startActivity(monIntent);
         }
+
+        private void setTable(){
+                JSONObject jsonobject;
+                String id, fname, lname;
+                try {
+                    for (int i = 0; i < jsonarray.length(); i++) {
+                        jsonobject = jsonarray.getJSONObject(i);
+                        tr1 = new TableRow(this);
+                        theID = new TextView(this);
+                        theFName = new TextView(this);
+                        theLName = new TextView(this);
+
+                        tr1.setLayoutParams(new TableRow.LayoutParams(
+                                TableRow.LayoutParams.WRAP_CONTENT,
+                                TableRow.LayoutParams.WRAP_CONTENT));
+
+                        id = jsonobject.getString("id");
+                        theID.setText(id);
+                        tr1.addView(theID);
+
+                        fname = jsonobject.getString("fname");
+                        theFName.setText(fname);
+                        tr1.addView(theFName);
+
+                        lname = jsonobject.getString("lname");
+                        theLName.setText(lname);
+                        tr1.addView(theLName);
+
+                        outTableLayout.addView(tr1);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+    }
         private class MyTask extends AsyncTask<Void , Void, Void> {
             @Override
             protected Void doInBackground(Void... params) {
@@ -86,6 +120,8 @@ public class ListeEmployes extends AppCompatActivity {
                     }
                     in.close();
                     jsonarray  = new JSONArray(response.toString());
+                    //System.out.println(str+"jsonarray: " + jsonarray.toString()+str);
+
 
                 } catch (ConnectException e) {
                     e.printStackTrace();
@@ -102,36 +138,8 @@ public class ListeEmployes extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void result){
                 super.onPostExecute(result);
+                setTable();
             }
         }
-        private void setTable(){
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject jsonobject;
-                    String id, fname, lname;
-                    try {
-                        for (int i = 0; i < jsonarray.length(); i++) {
-                            jsonobject = jsonarray.getJSONObject(i);
 
-                            id = jsonobject.getString("id");
-                            theID.setText(id);
-                            tr1.addView(theID);
-
-                            fname = jsonobject.getString("fname");
-                            theFName.setText(fname);
-                            tr1.addView(theFName);
-
-                            lname = jsonobject.getString("lname");
-                            theLName.setText(lname);
-                            tr1.addView(theLName);
-
-                            outTableLayout.addView(tr1);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
     }

@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.429"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.036" />
+        app:layout_constraintVertical_bias="0.023" />
 
     <Button
         android:id="@+id/button3"
@@ -30,44 +30,84 @@
         app:layout_constraintHorizontal_bias="0.937"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.939" />
+        app:layout_constraintVertical_bias="0.976" />
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="395dp"
-        android:layout_height="wrap_content"
+        android:layout_width="127dp"
+        android:layout_height="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.625"
+        app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.799" />
+        app:layout_constraintVertical_bias="0.977" />
 
-    <TableLayout
-        android:id="@+id/tableLayoutEmployes"
-        android:layout_width="398dp"
-        android:layout_height="424dp"
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="451dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.769"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.287">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TableRow
+        <TableLayout
+            android:id="@+id/tableLayoutEmployes"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="424dp"
+            android:fadeScrollbars="false"
+            android:orientation="vertical"
+            android:stretchColumns="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.287">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <TableRow
+                android:id="@+id/tableRowTitre"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/simpleTextViewID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#b0b0b0"
+                    android:padding="18dip"
+                    android:stretchColumns="0"
+                    android:text=" ID"
+                    android:textColor="#000"
+                    android:textSize="12dp" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </TableLayout>
+                <TextView
+                    android:id="@+id/simpleTextViewFNAME"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#b0b0b0"
+                    android:padding="18dip"
+                    android:stretchColumns="*"
+                    android:text=" FNAME "
+                    android:textColor="#000"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/simpleTextViewLNAME"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#b0b0b0"
+                    android:padding="18dip"
+                    android:stretchColumns="1"
+                    android:text=" FNAME "
+                    android:textColor="#000"
+                    android:textSize="12dp" />
+            </TableRow>
+
+        </TableLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
