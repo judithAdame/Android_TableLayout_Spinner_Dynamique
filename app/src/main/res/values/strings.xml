@@ -4,4 +4,10 @@
     <string name="textviewEmailL">TextView</string>
     <string name="liste_demployes">Liste demployes</string>
     <string name="employee_details">EMPLOYEE DETAILS</string>
+    <string name="details_de_l_employ">Details de l\'employé</string>
+    <string name="email">Email</string>
+    <string name="salary">Salary</string>
+    <string name="name">Name</string>
+    <string name="login_error">Login error</string>
+    <string name="login_screen">Login Screen</string>
 </resources>

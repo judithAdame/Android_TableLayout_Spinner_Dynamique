@@ -2,15 +2,18 @@ package com.example.projetfinal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,11 +25,13 @@ import java.io.InputStreamReader;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListeEmployes extends AppCompatActivity {
         String addIp = "192.168.123.11";
         String serviceWebGetAll = "http://"+addIp+":8080/WebApplication1/webresources/database/employeeList";
-        // String serviceWebGetById = "http://"+addIp+"/WebApplication1/webresources/database/singleEmployee&100";
+        //http://localhost:8080/WebApplication1/webresources/database/employeeList
         String str = "\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\n";
         TableLayout outTableLayout;
         TableRow tr1;
@@ -34,6 +39,9 @@ public class ListeEmployes extends AppCompatActivity {
         TextView  theFName;
         TextView  theLName;
         JSONArray jsonarray;
+        Spinner outSpinnerId;
+        List<String> spinnerArray = new ArrayList<String>();
+        String id;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +49,20 @@ public class ListeEmployes extends AppCompatActivity {
             setContentView(R.layout.activity_liste_employes);
 
             outTableLayout = findViewById(R.id.tableLayoutEmployes);
+
+            outSpinnerId = (Spinner) findViewById(R.id.spinnerId);
+
+            outSpinnerId.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    id=   outSpinnerId.getItemAtPosition(outSpinnerId.getSelectedItemPosition()).toString();
+                    //Toast.makeText(getApplicationContext(),id,Toast.LENGTH_LONG).show();
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                    // DO Nothing here
+                }
+            });
 
             /*tr1 = new TableRow(this);
             theID = new TextView(this);
@@ -59,10 +81,6 @@ public class ListeEmployes extends AppCompatActivity {
 
             new ListeEmployes.MyTask().execute();
 
-        }
-        public void onClickDetail(View vue) {
-            Intent monIntent = new Intent(this, DetailEmploye.class);
-            startActivity(monIntent);
         }
 
         private void setTable(){
@@ -83,6 +101,7 @@ public class ListeEmployes extends AppCompatActivity {
                         id = jsonobject.getString("id");
                         theID.setText(id);
                         tr1.addView(theID);
+                        spinnerArray.add(id);
 
                         fname = jsonobject.getString("fname");
                         theFName.setText(fname);
@@ -94,10 +113,22 @@ public class ListeEmployes extends AppCompatActivity {
 
                         outTableLayout.addView(tr1);
                     }
+                    // Create an ArrayAdapter using the string array and a default spinner layout
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                            this, android.R.layout.simple_spinner_item, spinnerArray);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    outSpinnerId.setAdapter(adapter);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-    }
+        }
+        public void onClickDetail(View DetailEmploye) {
+            Intent monIntent = new Intent(this, DetailEmploye.class);
+            monIntent.putExtra("id", id);
+            startActivity(monIntent);
+        }
+
         private class MyTask extends AsyncTask<Void , Void, Void> {
             @Override
             protected Void doInBackground(Void... params) {

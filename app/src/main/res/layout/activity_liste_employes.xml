@@ -7,7 +7,7 @@
     tools:context=".ListeEmployes">
 
     <TextView
-        android:id="@+id/textViewTitre"
+        android:id="@+id/textViewTitre3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/liste_demployes"
@@ -33,7 +33,7 @@
         app:layout_constraintVertical_bias="0.976" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinnerId"
         android:layout_width="127dp"
         android:layout_height="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
